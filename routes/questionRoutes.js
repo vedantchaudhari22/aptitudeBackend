@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', getQuestions);
 router.get('/:id', getQuestionById);
 // router.post('/add', upload.single('image'), addQuestion);
+
 router.post('/add', upload.single('graphImage'), addQuestion);
 router.put('/:id', upload.single('graphImage'), updateQuestion);
 router.delete('/:id', deleteQuestion);
