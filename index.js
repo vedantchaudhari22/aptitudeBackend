@@ -16,7 +16,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // 1. MIDDLEWARES
-app.use(cors());
+app.use(cors({
+    origin: ["https://aptitude-frontend-eta.vercel.app", "http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 app.use(express.json());
 // Ensure the public folder exists for local uploads
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
@@ -33,7 +37,7 @@ const connectDB = async () => {
     try {
         await mongoose.connect(MONGO_URI, {
             // Serverless timeout settings to prevent 10s hangs
-            serverSelectionTimeoutMS: 5000, 
+            serverSelectionTimeoutMS: 5000,
             socketTimeoutMS: 45000,
         });
         console.log("Connected to MongoDB Atlas");
